@@ -1,34 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package videoclub;
-
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-public class FenetreCinema extends JFrame implements ActionListener, WindowListener {
-
+/**
+ *
+ * @author Admin
+ */
+public class FenetreCinema extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FenetreCinema.class.getName());
     private Cinema cinema;
     private File fichier = new File("videoclub.dat");
     private PanneauProgramme programme;
     private PanneauReservations reservations;
-    private JPanel contenu = new JPanel(new BorderLayout());
-    private JButton voirProgramme = new JButton("Programme");
-    private JButton voirReservations = new JButton("Réservations");
-    private JButton enregistrer = new JButton("Sauvegarder");
-    private JButton charger = new JButton("Recharger");
-    private JLabel message = new JLabel(" ");
-
+    
+    /**
+     * Creates new form FenetreCinema
+     */
     public FenetreCinema() {
-        super("VideoClub");
+        initComponents();
+        setSize(1100, 680);
+
         cinema = new Cinema();
         if (fichier.exists()) {
             try {
@@ -38,48 +36,28 @@ public class FenetreCinema extends JFrame implements ActionListener, WindowListe
                 message.setText("Sauvegarde illisible. Le cinéma est vide, le fichier est conservé.");
             } catch (ClassNotFoundException e) {
                 message.setText("Sauvegarde incompatible avec cette version de VideoClub.");
-            }
+        }
         } else {
             message.setText("Bienvenue dans VideoClub. Crée ton programme pour commencer.");
-        }
-        setLayout(new BorderLayout(8, 8));
-        JPanel barre = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 8));
-        barre.add(new JLabel("VideoClub"));
-        barre.add(voirProgramme);
-        barre.add(voirReservations);
-        barre.add(enregistrer);
-        barre.add(charger);
-        add(barre, BorderLayout.NORTH);
-        add(contenu, BorderLayout.CENTER);
-        add(message, BorderLayout.SOUTH);
-        creerPanneaux();
-        afficher(programme);
-
-        voirProgramme.addActionListener(this);
-        voirReservations.addActionListener(this);
-        enregistrer.addActionListener(this);
-        charger.addActionListener(this);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(this);
-        setSize(1100, 680);
     }
 
+    creerPanneaux();
+    afficher(programme);    
+    }
+    
     private void creerPanneaux() {
-        programme = new PanneauProgramme(cinema);
-        reservations = new PanneauReservations(cinema);
-    }
-
+    programme = new PanneauProgramme(cinema);
+    reservations = new PanneauReservations(cinema);
+}
     private void afficher(JPanel panneau) {
-        contenu.removeAll();
-        contenu.add(panneau, BorderLayout.CENTER);
-        contenu.revalidate();
-        contenu.repaint();
-    }
-
+    contenu.removeAll();
+    contenu.add(panneau, BorderLayout.CENTER);
+    contenu.revalidate();
+    contenu.repaint();
+}
     private boolean estModifie() {
-        return programme.estModifie() || reservations.estModifie();
-    }
-
+    return programme.estModifie() || reservations.estModifie();
+}
     private boolean sauvegarder() {
         try {
             Sauvegarde.enregistrer(cinema, fichier);
@@ -88,12 +66,12 @@ public class FenetreCinema extends JFrame implements ActionListener, WindowListe
             message.setText("Sauvegarde effectuée dans " + fichier.getAbsolutePath());
             return true;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Impossible de sauvegarder : " + e.getMessage(),
+            JOptionPane.showMessageDialog(this,
+                    "Impossible de sauvegarder : " + e.getMessage(),
                     "Sauvegarde", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-    }
-
+}
     private void recharger() {
         if (estModifie()) {
             int reponse = JOptionPane.showConfirmDialog(this,
@@ -103,64 +81,127 @@ public class FenetreCinema extends JFrame implements ActionListener, WindowListe
                 return;
             }
         }
+
         try {
-            // Le cinéma actuel reste en place si la lecture échoue.
             Cinema copie = Sauvegarde.charger(fichier);
             cinema = copie;
             creerPanneaux();
             afficher(programme);
             message.setText("Sauvegarde rechargée.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Impossible de recharger : " + e.getMessage(),
+            JOptionPane.showMessageDialog(this,
+                    "Impossible de recharger : " + e.getMessage(),
                     "Recharger", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(this, "Ce fichier vient d'une version incompatible.",
+            JOptionPane.showMessageDialog(this,
+                    "Ce fichier vient d'une version incompatible.",
                     "Recharger", JOptionPane.ERROR_MESSAGE);
         }
-    }
+}
 
-    @Override
-    public void actionPerformed(ActionEvent evenement) {
-        Object bouton = evenement.getSource();
-        if (bouton == voirProgramme) {
-            programme.actualiser();
-            afficher(programme);
-        } else if (bouton == voirReservations) {
-            reservations.actualiser();
-            afficher(reservations);
-        } else if (bouton == enregistrer) {
-            sauvegarder();
-        } else if (bouton == charger) {
-            recharger();
-        }
-    }
 
-    @Override
-    public void windowClosing(WindowEvent evenement) {
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        barre = new javax.swing.JPanel();
+        Txt_VC = new javax.swing.JLabel();
+        voirProgramme = new javax.swing.JButton();
+        voirReservations = new javax.swing.JButton();
+        enregistrer = new javax.swing.JButton();
+        charger = new javax.swing.JButton();
+        contenu = new javax.swing.JPanel();
+        message = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("VideoClub");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        Txt_VC.setText("VidéoClub");
+        barre.add(Txt_VC);
+
+        voirProgramme.setText("Programme");
+        voirProgramme.addActionListener(this::voirProgrammeActionPerformed);
+        barre.add(voirProgramme);
+
+        voirReservations.setText("Réservations");
+        voirReservations.addActionListener(this::voirReservationsActionPerformed);
+        barre.add(voirReservations);
+
+        enregistrer.setText("Sauvegarder");
+        enregistrer.addActionListener(this::enregistrerActionPerformed);
+        barre.add(enregistrer);
+
+        charger.setText("Recharger");
+        charger.addActionListener(this::chargerActionPerformed);
+        barre.add(charger);
+
+        getContentPane().add(barre, java.awt.BorderLayout.PAGE_START);
+
+        contenu.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(contenu, java.awt.BorderLayout.PAGE_END);
+
+        message.setText(" ");
+        getContentPane().add(message, java.awt.BorderLayout.LINE_END);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void voirProgrammeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voirProgrammeActionPerformed
+        programme.actualiser();
+        afficher(programme);
+    }//GEN-LAST:event_voirProgrammeActionPerformed
+
+    private void voirReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voirReservationsActionPerformed
+        reservations.actualiser();
+        afficher(reservations);
+    }//GEN-LAST:event_voirReservationsActionPerformed
+
+    private void enregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enregistrerActionPerformed
+        sauvegarder();
+    }//GEN-LAST:event_enregistrerActionPerformed
+
+    private void chargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerActionPerformed
+        recharger();
+    }//GEN-LAST:event_chargerActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (estModifie()) {
             int reponse = JOptionPane.showConfirmDialog(this,
-                    "Sauvegarder les modifications avant de quitter ?", "Quitter VideoClub",
-                    JOptionPane.YES_NO_CANCEL_OPTION);
-            if (reponse == JOptionPane.CANCEL_OPTION || reponse == JOptionPane.CLOSED_OPTION) {
+                    "Sauvegarder les modifications avant de quitter ?",
+                    "Quitter VideoClub", JOptionPane.YES_NO_CANCEL_OPTION);
+            
+            if (reponse == JOptionPane.CANCEL_OPTION
+                    || reponse == JOptionPane.CLOSED_OPTION) {
                 return;
             }
             if (reponse == JOptionPane.YES_OPTION && !sauvegarder()) {
                 return;
             }
         }
-        dispose();
-    }
-
-    @Override
-    public void windowOpened(WindowEvent evenement) { }
-    @Override
-    public void windowClosed(WindowEvent evenement) { }
-    @Override
-    public void windowIconified(WindowEvent evenement) { }
-    @Override
-    public void windowDeiconified(WindowEvent evenement) { }
-    @Override
-    public void windowActivated(WindowEvent evenement) { }
-    @Override
-    public void windowDeactivated(WindowEvent evenement) { }
+    dispose();
+    }//GEN-LAST:event_formWindowClosing
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Txt_VC;
+    private javax.swing.JPanel barre;
+    private javax.swing.JButton charger;
+    private javax.swing.JPanel contenu;
+    private javax.swing.JButton enregistrer;
+    private javax.swing.JLabel message;
+    private javax.swing.JButton voirProgramme;
+    private javax.swing.JButton voirReservations;
+    // End of variables declaration//GEN-END:variables
 }
