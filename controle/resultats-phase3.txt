@@ -1,0 +1,16 @@
+OK : ajout de deux séances
+OK : retrait d'un film non programmé
+OK : film programmé protégé
+OK : réservation ajoutée
+OK : recherche par nom sans tenir compte de la casse
+OK : recherche par numéro
+OK : affichage de toutes les réservations
+OK : séance réservée protégée
+OK : annulation de la réservation
+OK : retrait de la séance après annulation
+OK : films et séances rechargés
+OK : réservation rechargée
+OK : place occupée après rechargement
+OK : compteur conservé après rechargement
+OK : fichier d'un autre type refusé
+15 vérifications phase 3 réussies.

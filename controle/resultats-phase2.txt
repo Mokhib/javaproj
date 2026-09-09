@@ -1,0 +1,40 @@
+OK : plan de salle
+OK : recherche d'un film
+OK : recherche d'une salle
+OK : séance vide
+OK : première réservation
+OK : compte des places
+OK : recette de deux billets
+OK : pourcentage avec décimales
+OK : refus sans réservation partielle
+OK : numéro global non consommé par un refus
+OK : même place à une autre séance
+OK : recherche dans plusieurs séances
+OK : annulation existante
+OK : places et recette mises à jour après annulation
+OK : autre séance inchangée après annulation
+OK : double annulation et recherche absente
+OK : place sélectionnée deux fois
+OK : sélection vide
+OK : sélection null
+OK : nom vide
+OK : nom null
+OK : séance non enregistrée
+OK : séance null
+OK : siège A1 d'une autre salle
+OK : place fabriquée hors du tableau
+OK : place null
+OK : aucun ajout après les saisies refusées
+OK : numéro non réutilisé après annulation
+OK : salle complète
+OK : pas de surréservation
+OK : les listes externes ne modifient pas le modèle
+OK : coordonnées invalides refusées
+OK : salle de capacité nulle refusée
+OK : tarif négatif refusé
+OK : numéro de salle déjà utilisé refusé
+OK : occupation après rechargement
+OK : salle partagée après rechargement
+OK : compteur conservé après rechargement
+OK : réservation après rechargement
+39 vérifications réussies.
