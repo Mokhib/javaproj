@@ -14,7 +14,6 @@ import javax.swing.JPanel;
  */
 public class FenetreCinema extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FenetreCinema.class.getName());
     private Cinema cinema;
     private File fichier = new File("videoclub.dat");
     private PanneauProgramme programme;
@@ -126,8 +125,11 @@ public class FenetreCinema extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.BorderLayout(8, 8));
 
-        Txt_VC.setText("VidéoClub");
+        barre.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 8));
+
+        Txt_VC.setText("VideoClub");
         barre.add(Txt_VC);
 
         voirProgramme.setText("Programme");
@@ -146,13 +148,13 @@ public class FenetreCinema extends javax.swing.JFrame {
         charger.addActionListener(this::chargerActionPerformed);
         barre.add(charger);
 
-        getContentPane().add(barre, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(barre, java.awt.BorderLayout.NORTH);
 
         contenu.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(contenu, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(contenu, java.awt.BorderLayout.CENTER);
 
         message.setText(" ");
-        getContentPane().add(message, java.awt.BorderLayout.LINE_END);
+        getContentPane().add(message, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
